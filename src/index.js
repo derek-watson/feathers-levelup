@@ -197,17 +197,23 @@ class Service {
   }
 
   find(params) {
+    const paginate = typeof params.paginate !== 'undefined' ?
+      params.paginate : this.paginate;
     // Call the internal find with query parameter that include pagination
-    const result = this._find(params, query => filter(query, this.paginate));
+    const result = this._find(params, query => filter(query, paginate));
 
-    if(!this.paginate.default) {
+    if(!paginate.default) {
       return result.then(page => page.data);
     }
 
     return result;
   }
 
-  get(id) {
+  get(... args) {
+    return this._get(... args);
+  }
+
+  _get(id) {
     return new Promise((resolve, reject) => {
       this.db.get(id, function(err, data) {
         if (err) {
@@ -256,7 +262,7 @@ class Service {
     }
 
     return this
-      .get(id)
+      ._get(id)
       .then(() => {
         return new Promise((resolve, reject) => {
           let current = _.extend({}, data, { [this._id]: id });
@@ -274,7 +280,7 @@ class Service {
   // Patch without hooks and mixins that can be used internally
   _patch(id, updateData) {
     return this
-      .get(id)
+      ._get(id)
       .then((old) => {
         return new Promise((resolve, reject) => {
           var current = _.extend(old, updateData);
@@ -303,7 +309,7 @@ class Service {
   // Remove without hooks and mixins that can be used internally
   _remove(id) {
     return this
-      .get(id)
+      ._get(id)
       .then((data) => {
         return new Promise((resolve, reject) => {
           this.db.del(id, function(err) {
