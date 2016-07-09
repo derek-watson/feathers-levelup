@@ -188,8 +188,7 @@ class Service {
   // Find without hooks and mixins that can be used internally and always returns
   // a pagination object
   _find(params, getFilter = filter) {
-    const query = params.query || {};
-    const filters = getFilter(query);
+    const { filters, query } = getFilter(params.query || {});
 
     return this._canPerformOptimized(query, filters) ?
       this._findOptimized(query, filters) :
