@@ -26,8 +26,9 @@ describe('Feathers LevelUP', () => {
     });
 
     afterEach(done => {
-      var doneNow = () => done();
-      return people.remove(_ids.Doug).then(doneNow, doneNow);
+      const doneNow = () => done();
+
+      people.remove(_ids.Doug).then(doneNow, doneNow);
     });
 
     it('is CommonJS compatible', () => {
