@@ -1,5 +1,3 @@
-/*jshint expr: true*/
-
 import assert from 'assert';
 import service from '../src';
 import levelup from 'levelup';
@@ -142,7 +140,7 @@ describe('Feathers LevelUP', () => {
 
         return people.find(params)
           .then(data => {
-            assert.deepEqual(data.map(item => item.age), [20,30,40]);
+            assert.deepEqual(data.map(item => item.age), [20, 30, 40]);
           });
       });
 
@@ -155,7 +153,7 @@ describe('Feathers LevelUP', () => {
 
         return people.find(params)
           .then(data => {
-            assert.deepEqual(data.map(item => item.age), [40,30,20]);
+            assert.deepEqual(data.map(item => item.age), [40, 30, 20]);
           });
       });
 

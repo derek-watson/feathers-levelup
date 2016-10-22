@@ -8,48 +8,48 @@ const _ = {
 };
 
 export const specialFilters = {
-  $in(key, ins) {
+  $in (key, ins) {
     return current => ins.indexOf(current[key]) !== -1;
   },
 
-  $nin(key, nins) {
+  $nin (key, nins) {
     return current => nins.indexOf(current[key]) === -1;
   },
 
-  $lt(key, value) {
+  $lt (key, value) {
     return current => current[key] < value;
   },
 
-  $lte(key, value) {
+  $lte (key, value) {
     return current => current[key] <= value;
   },
 
-  $gt(key, value) {
+  $gt (key, value) {
     return current => current[key] > value;
   },
 
-  $gte(key, value) {
+  $gte (key, value) {
     return current => current[key] >= value;
   },
 
-  $ne(key, value) {
+  $ne (key, value) {
     return current => current[key] !== value;
   }
 };
 
-export function matchesSpecialFilters(current, query) {
+export function matchesSpecialFilters (current, query) {
   var matches = true;
 
-  if(query.$or) {
+  if (query.$or) {
     if (!_.some(query.$or, or => _.isMatch(current, or))) {
       matches = false;
     }
   }
 
   _.each(query, (value, key) => {
-    if(_.isObject(value)) {
+    if (_.isObject(value)) {
       _.each(value, (target, prop) => {
-        if(specialFilters[prop]) {
+        if (specialFilters[prop]) {
           if (!specialFilters[prop](key, target)(current)) {
             matches = false;
           }
@@ -61,19 +61,19 @@ export function matchesSpecialFilters(current, query) {
   return matches;
 }
 
-export function filterSpecials(values, query) {
+export function filterSpecials (values, query) {
   return values.filter(obj => matchesSpecialFilters(obj, query));
 }
 
-export function stripSpecialFilters(query) {
+export function stripSpecialFilters (query) {
   let newQuery = _.cloneDeep(query);
 
   delete newQuery.$or;
 
   _.each(newQuery, (value, key) => {
-    if(_.isObject(value)) {
+    if (_.isObject(value)) {
       _.each(value, (target, prop) => {
-        if(specialFilters[prop]) {
+        if (specialFilters[prop]) {
           delete value[prop];
         }
       });
@@ -86,17 +86,17 @@ export function stripSpecialFilters(query) {
   return newQuery;
 }
 
-export function sorter($sort) {
+export function sorter ($sort) {
   return (first, second) => {
     let comparator = 0;
     _.each($sort, (modifier, key) => {
       modifier = parseInt(modifier, 10);
 
-      if(first[key] < second[key]) {
+      if (first[key] < second[key]) {
         comparator -= 1 * modifier;
       }
 
-      if(first[key] > second[key]) {
+      if (first[key] > second[key]) {
         comparator += 1 * modifier;
       }
     });

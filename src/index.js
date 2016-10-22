@@ -1,4 +1,4 @@
-if(!global._babelPolyfill) { require('babel-polyfill'); }
+if (!global._babelPolyfill) { require('babel-polyfill'); }
 
 import uuid from 'uuid';
 import Proto from 'uberproto';
@@ -24,7 +24,7 @@ const _ = {
 var counter = -1;
 
 class Service {
-  constructor(options = {}) {
+  constructor (options = {}) {
     if (!options.db) {
       throw new Error('You must provide a LevelUP database instance');
     }
@@ -39,22 +39,21 @@ class Service {
     this.sortField = options.sortField || '_createdAt';
   }
 
-  createKey(obj) {
+  createKey (obj) {
     counter += 1;
     let uid = uuid.v4();
-    let prefix = (this.sortField && obj[this.sortField]) ?
-      obj[this.sortField].toString() : '';
+    let prefix = (this.sortField && obj[this.sortField]) ? obj[this.sortField].toString() : '';
 
     return `${prefix}:${counter}:${uid}`;
   }
 
-  extend(obj) {
+  extend (obj) {
     return Proto.extend(obj, this);
   }
 
   // loads entire data set and performs an in-memory
   // filter, sort, skip, limit and select
-  _findInMemory(query, filters) {
+  _findInMemory (query, filters) {
     return new Promise((resolve, reject) => {
       var values = [];
 
@@ -67,7 +66,7 @@ class Service {
 
           var plainQuery = stripSpecialFilters(query);
 
-          if(!_.isEmpty(plainQuery)) {
+          if (!_.isEmpty(plainQuery)) {
             values = _.where(values, plainQuery);
           }
 
@@ -77,7 +76,7 @@ class Service {
             values.sort(sorter(filters.$sort));
           }
 
-          if (filters.$skip){
+          if (filters.$skip) {
             values = values.slice(filters.$skip);
           }
 
@@ -104,9 +103,8 @@ class Service {
 
   // performs an efficient range query over a sorted set,
   // collecting matching results until we satisfy our pagination limit
-  _findOptimized(query, filters) {
+  _findOptimized (query, filters) {
     return new Promise((resolve, reject) => {
-
       let total = 0;
       let values = [];
       let options = {};
@@ -134,7 +132,7 @@ class Service {
 
           var plainQuery = stripSpecialFilters(query);
 
-          if(!_.isEmpty(plainQuery)) {
+          if (!_.isEmpty(plainQuery)) {
             if (_.where([obj.value], plainQuery).length === 0) {
               return;
             }
@@ -171,7 +169,7 @@ class Service {
     });
   }
 
-  _canPerformOptimized(query, filters) {
+  _canPerformOptimized (query, filters) {
     if (!filters.$sort) {
       return true;
     }
@@ -187,34 +185,33 @@ class Service {
 
   // Find without hooks and mixins that can be used internally and always returns
   // a pagination object
-  _find(params, getFilter = filter) {
+  _find (params, getFilter = filter) {
     const { filters, query } = getFilter(params.query || {});
 
-    return this._canPerformOptimized(query, filters) ?
-      this._findOptimized(query, filters) :
-      this._findInMemory(query, filters);
+    return this._canPerformOptimized(query, filters)
+      ? this._findOptimized(query, filters)
+      : this._findInMemory(query, filters);
   }
 
-  find(params) {
-    const paginate = typeof params.paginate !== 'undefined' ?
-      params.paginate : this.paginate;
+  find (params) {
+    const paginate = typeof params.paginate !== 'undefined' ? params.paginate : this.paginate;
     // Call the internal find with query parameter that include pagination
     const result = this._find(params, query => filter(query, paginate));
 
-    if(!paginate.default) {
+    if (!paginate.default) {
       return result.then(page => page.data);
     }
 
     return result;
   }
 
-  get(... args) {
-    return this._get(... args);
+  get (...args) {
+    return this._get(...args);
   }
 
-  _get(id) {
+  _get (id) {
     return new Promise((resolve, reject) => {
-      this.db.get(id, function(err, data) {
+      this.db.get(id, function (err, data) {
         if (err) {
           if (err.notFound) {
             return reject(new errors.NotFound(`No record found for id '${id}'`));
@@ -228,7 +225,7 @@ class Service {
   }
 
   // Create without hooks and mixins that can be used internally
-  _create(data) {
+  _create (data) {
     let current = _.extend({}, data, {
       _createdAt: data._createdAt || new Date().getTime()
     });
@@ -236,7 +233,7 @@ class Service {
     let id = current[this._id] = this.createKey(current);
 
     return new Promise((resolve, reject) => {
-      this.db.put(id, current, function(err) {
+      this.db.put(id, current, function (err) {
         if (err) {
           return reject(new errors.GeneralError(`Internal error creating id '${id}' (${err})`));
         }
@@ -245,16 +242,16 @@ class Service {
     });
   }
 
-  create(data) {
-    if(Array.isArray(data)) {
+  create (data) {
+    if (Array.isArray(data)) {
       return Promise.all(data.map(current => this._create(current)));
     }
 
     return this._create(data);
   }
 
-  update(id, data) {
-    if(id === null || Array.isArray(data)) {
+  update (id, data) {
+    if (id === null || Array.isArray(data)) {
       return Promise.reject(new errors.BadRequest(
         `You can not replace multiple instances. Did you mean 'patch'?`
       ));
@@ -266,7 +263,7 @@ class Service {
         return new Promise((resolve, reject) => {
           let current = _.extend({}, data, { [this._id]: id });
 
-          this.db.put(id, current, function(err) {
+          this.db.put(id, current, function (err) {
             if (err) {
               return reject(new errors.GeneralError(`Internal error updating id '${id}' (${err})`));
             }
@@ -277,13 +274,13 @@ class Service {
   }
 
   // Patch without hooks and mixins that can be used internally
-  _patch(id, updateData) {
+  _patch (id, updateData) {
     return this
       ._get(id)
       .then((old) => {
         return new Promise((resolve, reject) => {
           var current = _.extend(old, updateData);
-          this.db.put(id, current, function(err) {
+          this.db.put(id, current, function (err) {
             if (err) {
               return reject(new errors.GeneralError(`Internal error updating id '${id}' (${err})`));
             }
@@ -293,8 +290,8 @@ class Service {
       });
   }
 
-  patch(id, data, params) {
-    if(id === null) {
+  patch (id, data, params) {
+    if (id === null) {
       return this._find(params).then(page => {
         return Promise.all(page.data.map(
           current => this._patch(current[this._id], data, params))
@@ -306,12 +303,12 @@ class Service {
   }
 
   // Remove without hooks and mixins that can be used internally
-  _remove(id) {
+  _remove (id) {
     return this
       ._get(id)
       .then((data) => {
         return new Promise((resolve, reject) => {
-          this.db.del(id, function(err) {
+          this.db.del(id, function (err) {
             if (err) {
               return reject(new errors.GeneralError(`Internal error removing id '${id}' (${err})`));
             }
@@ -321,8 +318,8 @@ class Service {
       });
   }
 
-  remove(id, params) {
-    if(id === null) {
+  remove (id, params) {
+    if (id === null) {
       return this._find(params).then(page =>
         Promise.all(page.data.map(current => this._remove(current[this._id])
       )));
@@ -332,7 +329,7 @@ class Service {
   }
 }
 
-export default function init(options) {
+export default function init (options) {
   return new Service(options);
 }
 
