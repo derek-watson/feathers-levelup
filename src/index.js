@@ -1,5 +1,3 @@
-if (!global._babelPolyfill) { require('babel-polyfill'); }
-
 import uuid from 'uuid';
 import Proto from 'uberproto';
 import errors from 'feathers-errors';
@@ -10,6 +8,8 @@ import {
   stripSpecialFilters,
   filterSpecials
 } from './utils';
+
+if (!global._babelPolyfill) { require('babel-polyfill'); }
 
 const _ = {
   values: require('lodash/values'),
