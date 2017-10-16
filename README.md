@@ -1,14 +1,15 @@
 
 # feathers-levelup
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs/feathers-levelup.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs-ecosystem/feathers-levelup.svg)](https://greenkeeper.io/)
+[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)](#status)
 
 > A service adapter for [LevelUP](https://github.com/Level/levelup), an interface to [LevelDB](http://leveldb.org/).
 
-[![Build Status](https://travis-ci.org/feathersjs/feathers-levelup.png?branch=master)](https://travis-ci.org/derek-watson/feathers-levelup)
-[![Code Climate](https://codeclimate.com/github/feathersjs/feathers-levelup.png)](https://codeclimate.com/github/feathersjs/feathers-levelup)
-[![Test Coverage](https://codeclimate.com/github/feathersjs/feathers-levelup/badges/coverage.svg)](https://codeclimate.com/github/feathersjs/feathers-levelup/coverage)
-[![Dependency Status](https://img.shields.io/david/feathersjs/feathers-levelup.svg?style=flat-square)](https://david-dm.org/feathersjs/feathers-levelup)
+[![Build Status](https://travis-ci.org/feathersjs-ecosystem/feathers-levelup.png?branch=master)](https://travis-ci.org/derek-watson/feathers-levelup)
+[![Code Climate](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup.png)](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup)
+[![Test Coverage](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup/badges/coverage.svg)](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup/coverage)
+[![Dependency Status](https://img.shields.io/david/feathersjs-ecosystem/feathers-levelup.svg?style=flat-square)](https://david-dm.org/feathersjs-ecosystem/feathers-levelup)
 [![Download Status](https://img.shields.io/npm/dm/feathers-levelup.svg?style=flat-square)](https://www.npmjs.com/package/feathers-levelup)
 [![Slack Status](http://slack.feathersjs.com/badge.svg)](http://slack.feathersjs.com)
 
@@ -25,22 +26,15 @@
   - [Changelog](#changelog)
   - [License](#license)
 
+## Status
+
+This module will continue to work as is but needs a maintainer for future feature and dependency updates. Create an issue if you are interested.
 
 ## Installation
 
 ```bash
 npm install feathers-levelup --save
 ```
-
-## Documentation
-
-Please refer to the [Feathers database adapter documentation](http://docs.feathersjs.com/databases/readme.html) for more details or directly at:
-
-- [LevelUP](http://docs.feathersjs.com/databases/levelup.html) - The detailed documentation for this adapter
-- [Extending](http://docs.feathersjs.com/databases/extending.html) - How to extend a database adapter
-- [Pagination and Sorting](http://docs.feathersjs.com/databases/pagination.html) - How to use pagination and sorting for the database adapter
-- [Querying](http://docs.feathersjs.com/databases/querying.html) - The common adapter querying mechanism
-
 
 ## Getting Started
 

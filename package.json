@@ -2,7 +2,7 @@
   "name": "feathers-levelup",
   "description": "LevelDB adapter for Feathers via LevelUP",
   "version": "1.1.1",
-  "homepage": "https://github.com/feathersjs/feathers-levelup",
+  "homepage": "https://github.com/feathersjs-ecosystem/feathers-levelup",
   "main": "lib/",
   "keywords": [
     "feathers",
@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/feathersjs/feathers-levelup.git"
+    "url": "git://github.com/feathersjs-ecosystem/feathers-levelup.git"
   },
   "author": {
     "name": "Feathers contributors",
@@ -25,7 +25,7 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/feathersjs/feathers-levelup/issues"
+    "url": "https://github.com/feathersjs-ecosystem/feathers-levelup/issues"
   },
   "engines": {
     "node": ">= 4"
