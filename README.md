@@ -6,7 +6,7 @@
 
 > A service adapter for [LevelUP](https://github.com/Level/levelup), an interface to [LevelDB](http://leveldb.org/).
 
-[![Build Status](https://travis-ci.org/feathersjs-ecosystem/feathers-levelup.png?branch=master)](https://travis-ci.org/derek-watson/feathers-levelup)
+[![Build Status](https://travis-ci.org/feathersjs-ecosystem/feathers-levelup.png?branch=master)](https://travis-ci.org/feathersjs-ecosystem/feathers-levelup)
 [![Code Climate](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup.png)](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup)
 [![Test Coverage](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup/badges/coverage.svg)](https://codeclimate.com/github/feathersjs-ecosystem/feathers-levelup/coverage)
 [![Dependency Status](https://img.shields.io/david/feathersjs-ecosystem/feathers-levelup.svg?style=flat-square)](https://david-dm.org/feathersjs-ecosystem/feathers-levelup)
