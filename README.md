@@ -2,7 +2,7 @@
 # feathers-levelup
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/feathersjs-ecosystem/feathers-levelup.svg)](https://greenkeeper.io/)
-[![Maintenance](https://img.shields.io/maintenance/yes/2017.svg)](#status)
+[![Maintenance](https://img.shields.io/maintenance/no/2017.svg)](#status)
 
 > A service adapter for [LevelUP](https://github.com/Level/levelup), an interface to [LevelDB](http://leveldb.org/).
 
